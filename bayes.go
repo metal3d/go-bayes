@@ -1,7 +1,11 @@
 package bayes
 
+// Licence MIT
+// Author Patrice FERLET
+
 import "unicode"
 
+// Category is a structure that keeps words and some stats.
 type Category struct {
 	Name          string             `json:"name"`
 	Words         map[string]float64 `json:"words"`
@@ -9,16 +13,47 @@ type Category struct {
 	ElementsCount float64            `json:"elementCount"`
 }
 
+// NewCategory construct a Category with the given name.
+func NewCategory(name string) *Category {
+	return &Category{
+		Name:          name,
+		Total:         0,
+		ElementsCount: 0,
+		Words:         make(map[string]float64),
+	}
+}
+
+// Train keeps the content message to the category.
 func (c *Category) Train(message string) {
 	register(message, c, 1)
 }
 
+// TrainMore is exactly the same as Train() but give more "evidence" (weight).
 func (c *Category) TrainMore(message string, evidence float64) {
 	register(message, c, evidence)
 }
 
+// Split the content to a slice using every char that is not unicode.Letter.
 func Split(words string) []string {
 	return split(words)
+}
+
+// Bayes compute bayesian theorem for the given content a given Category, using
+// the "all" categories.
+func Bayes(content string, in *Category, all []*Category) float64 {
+	return bayes(content, in, all)
+}
+
+// [Deprecated]
+// Train is an alias for cat.Train(message).
+func Train(message string, cat *Category) {
+	register(message, cat, 1)
+}
+
+// [Deprecated]
+// TrainMore is an alias for cat.TrainMore(message).
+func TrainMore(message string, cat *Category, evidence float64) {
+	register(message, cat, evidence)
 }
 
 func split(words string) []string {
@@ -85,25 +120,4 @@ func bayes(message string, in *Category, ctg []*Category) float64 {
 	}
 	// end ! we do calculation
 	return ((counters[in] / in.Total) * probas[in]) / sum
-}
-
-func NewCategory(name string) *Category {
-	return &Category{
-		Name:          name,
-		Total:         0,
-		ElementsCount: 0,
-		Words:         make(map[string]float64),
-	}
-}
-
-func Bayes(content string, in *Category, all []*Category) float64 {
-	return bayes(content, in, all)
-}
-
-func Train(message string, cat *Category) {
-	register(message, cat, 1)
-}
-
-func TrainMore(message string, cat *Category, evidence float64) {
-	register(message, cat, evidence)
 }
