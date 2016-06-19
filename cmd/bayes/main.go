@@ -51,6 +51,7 @@ func main() {
 
 	// parse json file
 	d := json.NewDecoder(f)
+
 	categories := []*bayes.Category{}
 	d.Decode(&categories)
 
@@ -72,6 +73,7 @@ func main() {
 		if found := getCat(category, categories); found != nil {
 			c = found
 		} else {
+			c = bayes.NewCategory(category)
 			categories = append(categories, c)
 		}
 	}
