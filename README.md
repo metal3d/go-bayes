@@ -1,5 +1,7 @@
 # Go Bayes
 
+[![](https://img.shields.io/badge/godoc-latest-orange.svg)](https://godoc.org/github.com/metal3d/go-bayes)
+
 Mainly a POC package to explain how it works. But the package is strong enough to be used.
 
 A command line is implemented in cmd/bayes
