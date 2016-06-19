@@ -38,7 +38,7 @@ bayes -h
   -save string
     	file base (default "bayes.json")
   -save-if float
-    	if > 0, save the result in found categorie if bayes result is greater than this value
+    	if > 0, save the result in found category if bayes result is greater than this value
 
 ```
 

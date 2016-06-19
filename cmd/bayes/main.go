@@ -31,7 +31,7 @@ func main() {
 	flag.StringVar(&lang, "lang", "", "language for stemming, if not set the content will not be stemmed")
 	flag.BoolVar(&get, "check", false, "check result")
 	flag.BoolVar(&all, "check-all", false, "check result in each categories")
-	flag.Float64Var(&auto, "save-if", 0.0, "if > 0, save the result in found categorie if bayes result is greater than this value")
+	flag.Float64Var(&auto, "save-if", 0.0, "if > 0, save the result in found category if bayes result is greater than this value")
 	flag.Parse()
 
 	if content == "" {
